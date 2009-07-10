@@ -1,0 +1,7 @@
+ * Wiki en sinatra
+   * Hacer + lindo
+   * Hacer un texto inicial razonable
+ * Las definiciones deberían aceptar markup.
+   * Hacé to_text en nodos para obtener el texto a poner en el diccionario.
+ * Poner en git
+ * Tests automáticos de la página web
