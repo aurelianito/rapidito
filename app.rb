@@ -12,6 +12,8 @@ def full_page( page_title, &content )
       head do 
         title page_title 
         link( :rel => "stylesheet", :type => "text/css", :href => "/css/rapidito.css" )
+        link( :rel => "shortcut icon", :type => "image/png", :href => "/favicon.png?#{rand}" )
+
       end
       body { self.instance_eval( &content ) }
     end
@@ -24,10 +26,11 @@ end
 
 get '/:page' do
   page_name = params[:page]
-  page = Page.find_by_name_or_new( page_name.upcase, "Describe !#{page_name} here" )
+  page = Page.find_by_name_or_new( page_name.upcase, "Describe #{page_name} here" )
   
   full_page( page_name ) do
     Rapidito::Rapidito.new('/').parse( page.markup ).to_html +
+    hr +
     form( :action => "/#{page_name}/edit", :method => :get ) do
       input( :type => :submit, :value => "Edit" )
     end
