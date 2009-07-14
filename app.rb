@@ -15,7 +15,14 @@ def full_page( page_title, &content )
         link( :rel => "shortcut icon", :type => "image/png", :href => "/favicon.png?#{rand}" )
 
       end
-      body { self.instance_eval( &content ) }
+      body do 
+        div.header! do
+          img.logo( :src => "/logo.png" )
+        end
+        div.body! do
+          self.instance_eval( &content ) 
+        end
+      end
     end
   end
 end
