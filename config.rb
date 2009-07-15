@@ -5,6 +5,12 @@ end
 
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
+%w{ lang_hacks rapidito }.each do
+  |lib|
+  require lib
+end
+
+
 configure :development do
   ActiveRecord::Base.establish_connection(
     :adapter => 'sqlite3',

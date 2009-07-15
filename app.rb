@@ -33,7 +33,7 @@ end
 
 get '/:page' do
   page_name = params[:page]
-  page = Page.find_by_name_or_new( page_name.upcase, "Describe #{page_name} here" )
+  page = Page.find_by_name_or_new( page_name, "Describe #{page_name} here" )
   
   full_page( page_name ) do
     Rapidito::Rapidito.new('/').parse( page.markup ).to_html +
@@ -46,7 +46,7 @@ end
 
 get '/:page/edit' do
   page_name = params[:page]
-  page = Page.find_by_name_or_new( page_name.upcase, "Describe #{page_name} here" )
+  page = Page.find_by_name_or_new( page_name, "Describe #{page_name} here" )
     
   full_page( "Edit #{page_name}" ) do
     form( :action => "/#{page_name}/save", :method => :post ) do
@@ -58,6 +58,6 @@ end
 
 post '/:page/save' do
   page_name = params[:page]
-  Page.create_or_update( page_name.upcase, params[:markup] )
+  Page.create_or_update( page_name, params[:markup] )
   redirect "/#{page_name}"
 end

@@ -27,6 +27,16 @@ namespace :db do
       ActiveRecord::SchemaDumper.dump(ActiveRecord::Base.connection, file)
     end
   end
+  
+  desc "Generate the initial pages for the wiki"
+  task :initial => :environment do
+    FileList.new("initial_pages/*").each do
+      |file|
+      name = file.split("/").last
+      markup = File.read( file )
+      Page.create_or_update( name, markup )
+    end
+  end
 end
 
 task :environment do
