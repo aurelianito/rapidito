@@ -167,4 +167,10 @@ MARKUP
       "<dl><dt>key1</dt><dd>value1</dd><dt>key2</dt><dd>value2</dd></dl>",
       "key1:: value1\nkey2:: value2"
   end 
+  
+  def test_pre
+    assert_rapidito_structure \
+      "<p>Paragraph</p><pre>'''Formatting'''\nand new line</pre><p>And another paragraph</p>",
+      "Paragraph\n{{{\n'''Formatting'''\nand new line\n}}}\nAnd another paragraph"
+  end
 end

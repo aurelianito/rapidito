@@ -22,8 +22,12 @@ module Rapidito
         "~~" => ElemProcessor.new(:del),
         "^" => ElemProcessor.new(:sup),
         ",," => ElemProcessor.new(:sub),
-        "{{{" => StateProcessor.new {VerbatimState.new( "{{{", "}}}" )},
-        "`" => StateProcessor.new {VerbatimState.new( "`", "`" )},
+        "{{{" => StateProcessor.new {
+          SingleLineVerbatimState.new( :tt, "{{{", "}}}" )
+        },
+        "`" => StateProcessor.new {
+          SingleLineVerbatimState.new( :tt, "`", "`" )
+        },
         LinkProcessor::REGEX => LinkProcessor.new( base_url ),
         :text => TextProcessor.new,
       }.freeze
@@ -57,6 +61,10 @@ module Rapidito
           DefinitionState::TOKEN =>
             StateProcessor.new { |st| DefinitionState.new( rapidito, st.token ) },
             
+          "{{{\n" => 
+            StateProcessor.new { 
+              VerbatimState.new( :pre, "\n{{{\n", "\n}}}\n" )
+            }
         }.merge!( heading_rules )
       )
       self.stack.push( HtmlElem.new(:div, :class => 'rapidito') )
@@ -139,7 +147,7 @@ module Rapidito
       super(
         rapidito,
         /\n{2}/ => proc { :finish_state },
-        /\n +\* / => proc do
+        ListState.list_starters( "\n" ) + ["\n{{{\n"] => proc do
           |st|
           st.tokenizer.source = st.token.to_s + st.tokenizer.source
           :finish_state

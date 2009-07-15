@@ -11,7 +11,7 @@ module Rapidito
       [ 
         /#{preamble} +[1-9]\d*\. /, 
         /#{preamble} +[*-] /,
-        /#{preamble} +[a-zA-Z] /,
+        /#{preamble} +[a-zA-Z]\. /,
         /#{preamble} +[iI]+\. /,
       ]
     end
