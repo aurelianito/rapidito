@@ -37,7 +37,6 @@ get '/:page' do
   
   full_page( page_name ) do
     Rapidito::Rapidito.new('/').parse( page.markup ).to_html +
-    hr +
     form( :action => "/#{page_name}/edit", :method => :get ) do
       input( :type => :submit, :value => "Edit" )
     end

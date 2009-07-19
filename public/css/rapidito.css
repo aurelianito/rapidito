@@ -5,6 +5,18 @@ textarea {
 
 body {
   margin: 0px;
+  font-family: Arial;
+}
+
+.rapidito {
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #ff8e5c;
+}
+
+.rapidito dd {
+  margin-left: 10px;
 }
 
 #header  {
