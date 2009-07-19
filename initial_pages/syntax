@@ -114,15 +114,17 @@ Block containing preformatted text are suitable for source code snippets, notes 
 Example:
 {{{
  {{{
-  def HelloWorld():
-      print "Hello World"
+  def hello_world
+      puts "Hello World"
+  end
  }}}
 }}}
 
 Display:
 {{{
- def HelloWorld():
-     print "Hello World"
+def hello_world
+    puts "Hello World"
+end
 }}}
 
 == rapidito links ==
