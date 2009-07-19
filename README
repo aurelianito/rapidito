@@ -1,0 +1,21 @@
+== Requirements ==
+ * Ruby 1.8
+ * rubygems
+ * sinatra (gem)
+ * activerecord (gem)
+ * sqlite3 (gem)
+ * markaby (gem)
+ * rake (gem)
+ * rack (gem)
+
+== Installation and running ==
+ * {{{rake}}} runs all the tests
+ * {{{rake db:migrate}}} generates the database
+ * {{{rake db:initial}}} populates the database with initial data (instructions and licensing information).
+ * {{{rackup}}} runs rapidito, the wiki database, in http://localhost:9292.
+
+== Source code ==
+The latest development version is available in github at http://github.com/aurelianito/rapidito/tree/master.
+
+== Licensing ==
+rapidito is licensed under the AGPL 3. See the _LICENSE file for details. Copyright (C) 2009 Aureliano Calvo. 

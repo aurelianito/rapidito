@@ -55,6 +55,7 @@ namespace :db do
       Page.create_or_update( name, markup )
     end
     Page.create_or_update( "license", "\n{{{\n" + File.read( "LICENSE" ) + "\n}}}\n" )
+    Page.create_or_update( "README", File.read( "README" ) )
   end
 end
 
