@@ -152,12 +152,6 @@ MARKUP
 
   end
   
-  def test_blockquote
-    assert_rapidito_structure \
-      "<blockquote><p>Multiline blockquote content</p></blockquote><p>And a paragraph</p>",
-      " Multiline\n  blockquote\n content\nAnd a paragraph"
-  end
-  
   def test_definition_list
     assert_rapidito_structure \
       "<dl><dt>key</dt><dd>value</dd></dl>",

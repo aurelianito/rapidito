@@ -56,8 +56,6 @@ module Rapidito
           ListState.list_starters => 
             StateProcessor.new { |st| ListState.new( rapidito, st.token ) },
             
-          / +/ => StateProcessor.new { |st| BlockQuoteState.new( rapidito ) },
-          
           DefinitionState::TOKEN =>
             StateProcessor.new { |st| DefinitionState.new( rapidito, st.token ) },
             
@@ -92,27 +90,6 @@ module Rapidito
       @heading_number = heading_number
       @root_node = HtmlElem.new
       self.stack.push @root_node
-    end
-  end
-  
-  class BlockQuoteState < BlockState
-    def initialize( rapidito )
-      super(
-        rapidito,
-        /\n/ => proc { :finish_state },
-        ListState.list_starters => proc do 
-          |st| 
-          st.tokenizer.source = st.token.to_s + st.tokenizer.source
-          :finish_state 
-        end,
-        /\n +/ => proc do 
-          |st| 
-          st.stack.last_elem << TextNode.new( " " ) 
-        end
-      )
-      
-      self.stack.push( HtmlElem.new( :blockquote ) )
-      self.stack.push( HtmlElem.new( :p ) )
     end
   end
   

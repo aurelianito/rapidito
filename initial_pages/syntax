@@ -125,18 +125,6 @@ Display:
      print "Hello World"
 }}}
 
-== Blockquotes ==
-
-In order to mark a paragraph as blockquote, indent that paragraph with two spaces.
-
-Example:
-{{{
-  This text is a quote from someone else.
-}}}
-
-Display:
-  This text is a quote from someone else.
-
 == rapidito links ==
 
 Unlike trac, rapidito generates links to other pages by linking words together. For instance this_is_a_link, an it is written as {{{this_is_a_link}}} in the page source. 
