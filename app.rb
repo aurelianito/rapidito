@@ -30,7 +30,7 @@ def full_page( page_title, &content )
       head do 
         title page_title 
         link( :rel => "stylesheet", :type => "text/css", :href => "/css/rapidito.css" )
-        link( :rel => "shortcut icon", :type => "image/png", :href => "/favicon.png?#{rand}" )
+        link( :rel => "shortcut icon", :type => "image/png", :href => "/favicon.ico?#{rand}" )
 
       end
       body do 
