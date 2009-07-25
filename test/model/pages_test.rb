@@ -37,6 +37,20 @@ class PagesTest < Test::Unit::TestCase
     assert_equal "other markup", page_in_db.markup
     
     assert_equal 1, Page.count
+  end
+  
+  def test_find_by_name_or_new
+    Page.create_or_update( "IN_DB", "markup in db" )
+    in_db = Page.find_by_name_or_new( "IN_DB", "other markup" )
+    assert ! in_db.new_record?
+    assert_equal "markup in db", in_db.markup
     
+    new_record = Page.find_by_name_or_new( "NEW", "the markup" )
+    assert new_record.new_record?
+    assert_equal "the markup", new_record.markup
+    
+    assert_equal 1, Page.count
+    new_record.save!
+    assert_equal 2, Page.count
   end
 end
