@@ -20,9 +20,10 @@ desc "Run all tests"
 task :default => :test
 
 [
-  {:name => :test, :desc => "All tests", :files => "test/**/*.rb" },
-  {:name => "test:lib", :desc => "Library tests", :files => "test/lib/*.rb" },
-  {:name => "test:model", :desc => "Model tests", :files => "test/model/*.rb" },
+  {:name => :test, :desc => "All tests", :files => "test/**/*_test.rb" },
+  {:name => "test:lib", :desc => "Library tests", :files => "test/lib/*_test.rb" },
+  {:name => "test:model", :desc => "Model tests", :files => "test/model/*_test.rb" },
+  {:name => "test:functional", :desc => "Test controllers and views", :files => "test/functional/*_test.rb" }
 ].each do
   |test|
   desc test[:desc]
