@@ -1,8 +1,9 @@
- * Hacer + lindo
  * Las definiciones deberían aceptar markup.
    * Hacé to_text en nodos para obtener el texto a poner en el diccionario.
  * Tests 
    * Automáticos de la página web
    * Del modelo
  * Genera links para cosas de la forma de un url.
- * favicon en formato .ico
+ * Manejo de conflictos
+ * Diff de revisiones
+ * Queries
