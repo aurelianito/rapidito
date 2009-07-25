@@ -22,6 +22,7 @@ task :default => :test
 [
   {:name => :test, :desc => "All tests", :files => "test/**/*.rb" },
   {:name => "test:lib", :desc => "Library tests", :files => "test/lib/*.rb" },
+  {:name => "test:model", :desc => "Model tests", :files => "test/model/*.rb" },
 ].each do
   |test|
   desc test[:desc]
