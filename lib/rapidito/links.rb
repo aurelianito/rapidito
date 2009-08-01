@@ -40,7 +40,7 @@ module Rapidito
   
   class ExternalLinkProcessor
     #little hack because URI.regexp is frozen and the lang_hacks require the regexp to be non-frozen
-    REGEX = Regexp.new( URI.regexp ) 
+    REGEX = Regexp.new( URI.regexp(%w{http https ftp}) ) 
     
     def call( st )
       page = st.token.to_s

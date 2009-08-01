@@ -70,6 +70,9 @@ class RapiditoHtmlTest < Test::Unit::TestCase
       'Visit http://aurelianito.blogspot.com'
     ],
     
+    # Can't inject javascript with links
+    [ "javascript:alert('hi')", "javascript:alert('hi')" ], 
+    
   ]
   
   def test_formatting
