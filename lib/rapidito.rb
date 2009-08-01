@@ -16,6 +16,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
+require 'lang_hacks'
+
 require 'rapidito/tokenizer'
 require 'rapidito/elem_stack'
 require 'rapidito/nodes'
@@ -24,15 +26,14 @@ require 'rapidito/processors'
 require 'rapidito/list'
 require 'rapidito/block_state'
 require 'rapidito/links'
-
-require 'lang_hacks'
+require 'rapidito/macros'
 
 module Rapidito
   class Rapidito
   
-    attr_reader :formatting_rules
+    attr_reader :formatting_rules, :macros
   
-    def initialize( base_url )
+    def initialize( base_url, macros={} )
       @formatting_rules = {
         "''" => ElemProcessor.new(:i),
         "'''" => ElemProcessor.new(:b),
@@ -48,8 +49,10 @@ module Rapidito
         },
         LinkProcessor::REGEX => LinkProcessor.new( base_url ),
         ExternalLinkProcessor::REGEX => ExternalLinkProcessor.new,
+        MacroProcessor::REGEX => MacroProcessor.new( self ),
         :text => TextProcessor.new,
       }.freeze
+      @macros = macros
     end
     
     def parse( source )
