@@ -47,6 +47,7 @@ module Rapidito
           SingleLineVerbatimState.new( :tt, "`", "`" )
         },
         LinkProcessor::REGEX => LinkProcessor.new( base_url ),
+        ExternalLinkProcessor::REGEX => ExternalLinkProcessor.new,
         :text => TextProcessor.new,
       }.freeze
     end

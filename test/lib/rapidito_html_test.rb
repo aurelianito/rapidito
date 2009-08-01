@@ -65,6 +65,10 @@ class RapiditoHtmlTest < Test::Unit::TestCase
       "Some_link" ],
     [ 'Hello <a href="http://base/Nicol&#225;s_Calvo">Nicol&#225;s Calvo</a>', 
       "Hello Nicolás_Calvo" ],
+      
+    [ 'Visit <a href="http://aurelianito.blogspot.com">http://aurelianito.blogspot.com</a>',
+      'Visit http://aurelianito.blogspot.com'
+    ],
     
   ]
   

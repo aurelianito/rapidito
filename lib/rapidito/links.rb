@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
 require 'rapidito/nodes'
+require 'uri'
 
 module Rapidito
   class LinkProcessor
@@ -33,6 +34,18 @@ module Rapidito
       page = page[1, page.length] if page[0,1] == "_"
       link = HtmlElem.new( :a, :href => @base_url + page )
       link << TextNode.new( page.gsub("_", " " ) )
+      st.stack.last_elem << link
+    end
+  end
+  
+  class ExternalLinkProcessor
+    #little hack because URI.regexp is frozen and the lang_hacks require the regexp to be non-frozen
+    REGEX = Regexp.new( URI.regexp ) 
+    
+    def call( st )
+      page = st.token.to_s
+      link = HtmlElem.new( :a, :href => page )
+      link << TextNode.new( page )
       st.stack.last_elem << link
     end
   end
