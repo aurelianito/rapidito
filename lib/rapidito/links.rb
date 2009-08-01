@@ -20,7 +20,16 @@ require 'rapidito/nodes'
 require 'uri'
 
 module Rapidito
-  class LinkProcessor
+  class BaseLinkProcessor
+    def call(st)
+      url, text = link_data(st.token.to_s)
+      link = HtmlElem.new( :a, :href => url )
+      link << TextNode.new( text )
+      st.stack.last_elem << link
+    end
+  end
+  
+  class LinkProcessor < BaseLinkProcessor
     
     # \303[\200-\277] are the acentuated chars like Á or ñ
     REGEX = /([A-Za-z0-9]|\303[\200-\277])*(_([A-Za-z0-9]|\303[\200-\277])+)+/
@@ -28,25 +37,21 @@ module Rapidito
     def initialize( base_url )
       @base_url = base_url
     end
-      
-    def call( st )
-      page = st.token.to_s
+    
+    def link_data( token )
+      page = token.to_s
       page = page[1, page.length] if page[0,1] == "_"
-      link = HtmlElem.new( :a, :href => @base_url + page )
-      link << TextNode.new( page.gsub("_", " " ) )
-      st.stack.last_elem << link
+      [ @base_url + page, page.gsub("_", " " ) ]
     end
+      
   end
   
-  class ExternalLinkProcessor
+  class ExternalLinkProcessor < BaseLinkProcessor
     #little hack because URI.regexp is frozen and the lang_hacks require the regexp to be non-frozen
     REGEX = Regexp.new( URI.regexp(%w{http https ftp}) ) 
     
-    def call( st )
-      page = st.token.to_s
-      link = HtmlElem.new( :a, :href => page )
-      link << TextNode.new( page )
-      st.stack.last_elem << link
+    def link_data( uri )
+      [uri, uri]
     end
   end
 end
