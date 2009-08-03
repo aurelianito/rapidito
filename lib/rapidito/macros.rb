@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module Rapidito
   class MacroProcessor
-    REGEX = /\[\[([A-Za-z_]+)\]\]/
+    REGEX = /\[\[([A-Za-z_]+)(\(.*?\))?\]\]/
     
     def initialize( rapidito )
       @rapidito = rapidito
@@ -26,9 +26,11 @@ module Rapidito
     
     def call(st)
       macro_name = st.token[1]
+      params = st.token[2] || "()"
+      params = params[1,params.length-2]
       html_elem = 
         if @rapidito.macros.include?(macro_name)
-          @rapidito.macros[macro_name].call
+          @rapidito.macros[macro_name].call( params, * params.split(",") )
         else
           TextNode.new( st.token.to_s )
         end

@@ -22,9 +22,12 @@ require 'rapidito'
 class RapiditoMacrosTest < Test::Unit::TestCase
   def assert_rapidito_paragraph( expected, markup )
     macros = {
-      "SIMPLE_MACRO" => proc { TextNode.new("RESULT FROM MACRO") }
+      "SIMPLE_MACRO" => proc { TextNode.new("RESULT FROM MACRO") },
+      "PARAM_MACRO" => 
+        proc { |params, p1, p2| TextNode.new( "All: #{params}; p1: #{p1}; p2: #{p2}" ) }
     }
-    assert_equal "<div class=\"rapidito\"><p>#{expected}</p></div>", Rapidito::Rapidito.new("/",macros).parse(markup).to_html
+    assert_equal "<div class=\"rapidito\"><p>#{expected}</p></div>", 
+      Rapidito::Rapidito.new("/",macros).parse(markup).to_html
   end
   
   
@@ -38,5 +41,11 @@ class RapiditoMacrosTest < Test::Unit::TestCase
     assert_rapidito_paragraph \
       "Something before, [[UNKNOWN_MACRO]] and something after",
       "Something before, [[UNKNOWN_MACRO]] and something after"
+  end
+  
+  def test_macro_with_parameters
+    assert_rapidito_paragraph \
+      "All: 1,2; p1: 1; p2: 2",
+      "[[PARAM_MACRO(1,2)]]"
   end
 end
